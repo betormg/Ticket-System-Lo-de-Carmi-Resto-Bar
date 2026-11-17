@@ -2,6 +2,7 @@
 import './style.css'
 import { supabase } from './supabase.js'
 import { mostrarLogin } from './pantallas/login.js'
+import { mostrarCaja } from './pantallas/caja.js'
 import { mostrarMenu } from './pantallas/menu.js'
 import { mostrarStock } from './pantallas/stock.js'
 
@@ -10,6 +11,7 @@ const app = document.getElementById('app')
 // Pantallas disponibles en la navegación. Para sumar una nueva (Caja, Stock…)
 // alcanza con importarla y agregar una línea acá.
 const pantallas = [
+  { id: 'caja', titulo: 'Caja', mostrar: mostrarCaja },
   { id: 'menu', titulo: 'Menú', mostrar: mostrarMenu },
   { id: 'stock', titulo: 'Stock', mostrar: mostrarStock },
 ]

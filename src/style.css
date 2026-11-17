@@ -121,3 +121,22 @@ body {
 .stock-fila { cursor: default; }
 .stock-fila input { width: 90px; font-size: 1.2rem; padding: 10px; text-align: right; }
 .stock-ok { margin: 0; color: #1b6e3a; font-weight: 600; }
+
+/* Caja */
+.btn-cant {
+  width: 48px;
+  height: 48px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  border: 0;
+  border-radius: 12px;
+  background: #b4521e;
+  color: #fff;
+  cursor: pointer;
+}
+.btn-cant:disabled { background: #e0d3c0; color: #a89984; cursor: not-allowed; }
+.cant { min-width: 28px; text-align: center; font-size: 1.2rem; font-weight: 700; }
+.carrito { margin-top: 20px; padding: 16px; background: #fff; border-radius: 12px; }
+.carrito h3 { margin: 0 0 8px; }
+.carrito-linea, .carrito-total { display: flex; justify-content: space-between; padding: 6px 0; }
+.carrito-total { border-top: 2px solid #e0d3c0; margin-top: 8px; font-size: 1.3rem; font-weight: 800; }
