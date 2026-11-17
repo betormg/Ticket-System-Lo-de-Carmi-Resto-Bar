@@ -1,0 +1,50 @@
+/* Mobile-first: botones e inputs grandes para usar con el dedo. */
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: #faf5ee;
+  color: #2b2118;
+}
+
+.login {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+}
+
+.login-form {
+  width: 100%;
+  max-width: 360px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.login-form h1 { margin: 0; text-align: center; }
+.login-sub { margin: 0; text-align: center; color: #7a6a58; }
+
+.login-form label { display: flex; flex-direction: column; gap: 4px; font-weight: 600; }
+
+.login-form input {
+  font-size: 1rem;
+  padding: 14px;
+  border: 1px solid #c9b9a5;
+  border-radius: 10px;
+}
+
+.login-error { margin: 0; color: #b3261e; font-weight: 600; }
+
+.btn-grande {
+  font-size: 1.1rem;
+  font-weight: 700;
+  padding: 16px;
+  border: 0;
+  border-radius: 12px;
+  background: #b4521e;
+  color: #fff;
+  cursor: pointer;
+}
+.btn-grande:disabled { opacity: 0.6; cursor: wait; }
