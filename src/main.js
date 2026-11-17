@@ -3,6 +3,7 @@ import './style.css'
 import { supabase } from './supabase.js'
 import { mostrarLogin } from './pantallas/login.js'
 import { mostrarMenu } from './pantallas/menu.js'
+import { mostrarStock } from './pantallas/stock.js'
 
 const app = document.getElementById('app')
 
@@ -10,6 +11,7 @@ const app = document.getElementById('app')
 // alcanza con importarla y agregar una línea acá.
 const pantallas = [
   { id: 'menu', titulo: 'Menú', mostrar: mostrarMenu },
+  { id: 'stock', titulo: 'Stock', mostrar: mostrarStock },
 ]
 
 // Estructura con la barra de navegación y un contenedor donde va la pantalla activa.

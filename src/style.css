@@ -116,3 +116,8 @@ body {
   background: #faf5ee;
   cursor: pointer;
 }
+
+/* Stock del día */
+.stock-fila { cursor: default; }
+.stock-fila input { width: 90px; font-size: 1.2rem; padding: 10px; text-align: right; }
+.stock-ok { margin: 0; color: #1b6e3a; font-weight: 600; }
