@@ -140,3 +140,22 @@ body {
 .carrito h3 { margin: 0 0 8px; }
 .carrito-linea, .carrito-total { display: flex; justify-content: space-between; padding: 6px 0; }
 .carrito-total { border-top: 2px solid #e0d3c0; margin-top: 8px; font-size: 1.3rem; font-weight: 800; }
+
+/* Formulario de la caja y ticket */
+.caja-form { margin-top: 16px; }
+.caja-form select {
+  font-size: 1rem;
+  padding: 14px;
+  border: 1px solid #c9b9a5;
+  border-radius: 10px;
+  background: #fff;
+}
+.ticket { padding: 20px; background: #fff; border-radius: 12px; margin-bottom: 12px; }
+.ticket h2 { margin: 0; text-align: center; }
+.ticket-num { text-align: center; font-size: 1.6rem; font-weight: 800; margin: 4px 0; }
+.ticket-meta { margin: 4px 0; color: #7a6a58; }
+.btn-wa { display: block; text-align: center; text-decoration: none; background: #1b8f4a; margin-bottom: 10px; }
+.btn-nuevo { width: 100%; }
+
+/* El atributo hidden tiene que ganarle a cualquier display: flex */
+[hidden] { display: none !important; }
