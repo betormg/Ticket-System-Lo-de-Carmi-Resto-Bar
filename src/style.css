@@ -170,6 +170,8 @@ body {
 .estado-anulado { background: #f3cfcb; }
 .pedido-items { list-style: none; margin: 8px 0; padding: 0; }
 .pedido-items li, .pedido-total { display: flex; justify-content: space-between; padding: 4px 0; }
+.reporte-fecha { display: block; margin-bottom: 12px; font-weight: 600; }
+.reporte-fecha input { display: block; margin-top: 6px; font-size: 1.1rem; padding: 10px; }
 .pedido-total { border-top: 2px solid #e0d3c0; font-weight: 800; }
 .pedido-botones { display: flex; gap: 10px; margin-top: 10px; }
 .pedido-botones .btn-grande { flex: 1; padding: 14px 8px; font-size: 1rem; }
