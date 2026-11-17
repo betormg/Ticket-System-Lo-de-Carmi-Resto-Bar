@@ -48,3 +48,71 @@ body {
   cursor: pointer;
 }
 .btn-grande:disabled { opacity: 0.6; cursor: wait; }
+.btn-sec { background: #e8dccb; color: #2b2118; }
+
+/* Navegación superior */
+.nav {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  padding: 10px 16px;
+  background: #fff;
+  border-bottom: 1px solid #e0d3c0;
+}
+.nav button {
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 12px 16px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  cursor: pointer;
+}
+.nav button.activa { background: #b4521e; color: #fff; }
+.nav .nav-salir { margin-left: auto; color: #7a6a58; }
+
+/* Pantallas */
+.pantalla { max-width: 640px; margin: 0 auto; padding: 16px; }
+.pantalla h2 { margin-top: 0; }
+
+.menu-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  margin-bottom: 20px;
+  background: #fff;
+  border-radius: 12px;
+}
+.menu-form h3 { margin: 0; }
+.menu-form label { display: flex; flex-direction: column; gap: 4px; font-weight: 600; }
+.menu-form input {
+  font-size: 1rem;
+  padding: 14px;
+  border: 1px solid #c9b9a5;
+  border-radius: 10px;
+}
+.menu-form-botones { display: flex; gap: 10px; }
+.menu-form-botones .btn-grande { flex: 1; }
+
+.menu-cat { margin: 20px 0 8px; color: #7a6a58; text-transform: uppercase; font-size: 0.85rem; }
+.menu-plato {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px;
+  margin-bottom: 8px;
+  background: #fff;
+  border-radius: 12px;
+}
+.menu-plato.inactivo { opacity: 0.55; }
+.menu-plato-info { flex: 1; display: flex; flex-direction: column; gap: 2px; }
+.menu-plato-info span { color: #7a6a58; }
+.btn-chico {
+  font-size: 0.95rem;
+  padding: 12px;
+  border: 1px solid #c9b9a5;
+  border-radius: 10px;
+  background: #faf5ee;
+  cursor: pointer;
+}

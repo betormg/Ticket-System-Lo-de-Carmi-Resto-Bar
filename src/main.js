@@ -2,25 +2,46 @@
 import './style.css'
 import { supabase } from './supabase.js'
 import { mostrarLogin } from './pantallas/login.js'
+import { mostrarMenu } from './pantallas/menu.js'
 
 const app = document.getElementById('app')
 
-// Pantalla provisoria para quien ya tiene sesión (se reemplaza por la Caja).
-function mostrarHola(sesion) {
+// Pantallas disponibles en la navegación. Para sumar una nueva (Caja, Stock…)
+// alcanza con importarla y agregar una línea acá.
+const pantallas = [
+  { id: 'menu', titulo: 'Menú', mostrar: mostrarMenu },
+]
+
+// Estructura con la barra de navegación y un contenedor donde va la pantalla activa.
+function mostrarApp() {
   app.innerHTML = `
-    <main class="login">
-      <div class="login-form">
-        <h1>Hola</h1>
-        <p class="login-sub">${sesion.user.email}</p>
-        <button type="button" class="btn-grande" id="salir">Salir</button>
-      </div>
-    </main>
+    <nav class="nav">
+      ${pantallas.map((p) => `<button type="button" data-id="${p.id}">${p.titulo}</button>`).join('')}
+      <button type="button" class="nav-salir">Salir</button>
+    </nav>
+    <main id="contenido"></main>
   `
-  document.getElementById('salir').addEventListener('click', () => supabase.auth.signOut())
+  const contenido = document.getElementById('contenido')
+
+  function ir(id) {
+    const pantalla = pantallas.find((p) => p.id === id)
+    app.querySelectorAll('.nav button[data-id]').forEach((b) =>
+      b.classList.toggle('activa', b.dataset.id === id))
+    pantalla.mostrar(contenido)
+  }
+
+  app.querySelector('.nav').addEventListener('click', (e) => {
+    const boton = e.target.closest('button')
+    if (!boton) return
+    if (boton.classList.contains('nav-salir')) supabase.auth.signOut()
+    else ir(boton.dataset.id)
+  })
+
+  ir(pantallas[0].id)
 }
 
 function render(sesion) {
-  if (sesion) mostrarHola(sesion)
+  if (sesion) mostrarApp()
   else mostrarLogin(app)
 }
 
