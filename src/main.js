@@ -5,6 +5,7 @@ import { mostrarLogin } from './pantallas/login.js'
 import { mostrarCaja } from './pantallas/caja.js'
 import { mostrarMenu } from './pantallas/menu.js'
 import { mostrarStock } from './pantallas/stock.js'
+import { mostrarPedidos } from './pantallas/pedidos.js'
 
 const app = document.getElementById('app')
 
@@ -14,6 +15,7 @@ const pantallas = [
   { id: 'caja', titulo: 'Caja', mostrar: mostrarCaja },
   { id: 'menu', titulo: 'Menú', mostrar: mostrarMenu },
   { id: 'stock', titulo: 'Stock', mostrar: mostrarStock },
+  { id: 'pedidos', titulo: 'Pedidos', mostrar: mostrarPedidos },
 ]
 
 // Estructura con la barra de navegación y un contenedor donde va la pantalla activa.

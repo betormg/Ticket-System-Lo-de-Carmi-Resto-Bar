@@ -157,5 +157,20 @@ body {
 .btn-wa { display: block; text-align: center; text-decoration: none; background: #1b8f4a; margin-bottom: 10px; }
 .btn-nuevo { width: 100%; }
 
+/* Pedidos de hoy */
+.pedido { padding: 16px; margin-bottom: 12px; background: #fff; border-radius: 12px; }
+.pedido.anulado { opacity: 0.55; }
+.pedido-cab { display: flex; justify-content: space-between; align-items: center; font-size: 1.15rem; }
+.estado { font-size: 0.85rem; font-weight: 700; padding: 4px 10px; border-radius: 999px; background: #e8dccb; }
+.estado-en_cocina { background: #fde3b0; }
+.estado-listo { background: #cfe9d6; }
+.estado-entregado { background: #d6e4f5; }
+.estado-anulado { background: #f3cfcb; }
+.pedido-items { list-style: none; margin: 8px 0; padding: 0; }
+.pedido-items li, .pedido-total { display: flex; justify-content: space-between; padding: 4px 0; }
+.pedido-total { border-top: 2px solid #e0d3c0; font-weight: 800; }
+.pedido-botones { display: flex; gap: 10px; margin-top: 10px; }
+.pedido-botones .btn-grande { flex: 1; padding: 14px 8px; font-size: 1rem; }
+
 /* El atributo hidden tiene que ganarle a cualquier display: flex */
 [hidden] { display: none !important; }
