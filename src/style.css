@@ -160,6 +160,8 @@ body {
 /* Pedidos de hoy */
 .pedido { padding: 16px; margin-bottom: 12px; background: #fff; border-radius: 12px; }
 .pedido.anulado { opacity: 0.55; }
+.pedido-confirmar { align-items: center; flex-wrap: wrap; }
+.pedido-confirmar span { flex-basis: 100%; font-weight: 700; }
 .pedido-cab { display: flex; justify-content: space-between; align-items: center; font-size: 1.15rem; }
 .estado { font-size: 0.85rem; font-weight: 700; padding: 4px 10px; border-radius: 999px; background: #e8dccb; }
 .estado-en_cocina { background: #fde3b0; }

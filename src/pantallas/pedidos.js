@@ -50,7 +50,16 @@ export async function mostrarPedidos(contenedor) {
       lista.textContent = 'Todavía no hay pedidos hoy.'
       return
     }
-    lista.innerHTML = data.map(tarjeta).join('')
+    // Activos arriba; los anulados van abajo, aparte y en gris (como los
+    // platos inactivos en Menú).
+    const activos = data.filter((p) => p.status !== 'anulado')
+    const anulados = data.filter((p) => p.status === 'anulado')
+    lista.innerHTML = `
+      ${activos.length ? activos.map(tarjeta).join('') : '<p>No hay pedidos activos.</p>'}
+      ${anulados.length ? `
+        <h3 class="menu-cat">Anulados</h3>
+        ${anulados.map(tarjeta).join('')}` : ''}
+    `
   }
 
   function tarjeta(p) {
@@ -79,6 +88,11 @@ export async function mostrarPedidos(contenedor) {
           ${sig ? `<button type="button" class="btn-grande" data-accion="avanzar" data-estado="${sig.estado}">${sig.texto}</button>` : ''}
           ${anulable ? '<button type="button" class="btn-grande btn-sec" data-accion="anular">Anular</button>' : ''}
         </div>
+        <div class="pedido-botones pedido-confirmar" hidden>
+          <span>¿Anular este pedido?</span>
+          <button type="button" class="btn-grande" data-accion="confirmar-anular">Sí, anular</button>
+          <button type="button" class="btn-grande btn-sec" data-accion="cancelar">No</button>
+        </div>
       </article>`
   }
 
@@ -87,18 +101,27 @@ export async function mostrarPedidos(contenedor) {
   lista.addEventListener('click', async (e) => {
     const boton = e.target.closest('button[data-accion]')
     if (!boton) return
-    const id = boton.closest('.pedido').dataset.id
-    const ticket = boton.closest('.pedido').querySelector('strong').textContent
+    const tarjetaEl = boton.closest('.pedido')
+    const id = tarjetaEl.dataset.id
+    const accion = boton.dataset.accion
+    const normales = tarjetaEl.querySelector('.pedido-botones:not(.pedido-confirmar)')
+    const confirmar = tarjetaEl.querySelector('.pedido-confirmar')
     mostrarError('')
 
-    if (boton.dataset.accion === 'anular') {
-      if (!confirm(`¿Anular el ${ticket}? Se devuelve el stock y no se puede deshacer.`)) return
-      boton.disabled = true
+    // confirm() del navegador se bloquea en algunos entornos (apps, celulares),
+    // así que la confirmación es un paso dentro de la propia tarjeta.
+    if (accion === 'anular' || accion === 'cancelar') {
+      normales.hidden = accion === 'anular'
+      confirmar.hidden = accion === 'cancelar'
+      return
+    }
+
+    boton.disabled = true
+    if (accion === 'confirmar-anular') {
       // cancel_order marca anulado y devuelve el stock en una sola operación.
       const { error: err } = await supabase.rpc('cancel_order', { p_order_id: id })
       if (err) mostrarError(`No se pudo anular: ${err.message}`)
     } else {
-      boton.disabled = true
       const { error: err } = await supabase
         .from('orders').update({ status: boton.dataset.estado }).eq('id', id)
       if (err) mostrarError(`No se pudo cambiar el estado: ${err.message}`)
