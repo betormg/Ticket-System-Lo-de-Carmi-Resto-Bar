@@ -46,7 +46,8 @@ export async function mostrarStock(contenedor) {
       lista.textContent = 'No se pudo cargar el stock. Revisá la conexión.'
       return
     }
-    const platos = platosRes.data
+    // Las guarniciones no llevan stock (se ofrecen con todos los platos): no aparecen acá.
+    const platos = platosRes.data.filter((p) => p.kind !== 'guarnicion')
     if (!platos.length) {
       lista.textContent = 'No hay platos activos. Cargalos primero en Menú.'
       return
