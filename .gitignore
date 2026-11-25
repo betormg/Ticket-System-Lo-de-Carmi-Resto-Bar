@@ -6,3 +6,7 @@ dist/
 .vercel
 *.log
 .DS_Store
+
+# Notas y configuración de trabajo local
+CLAUDE.md
+.claude/
