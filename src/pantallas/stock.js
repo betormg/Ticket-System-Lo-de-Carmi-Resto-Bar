@@ -1,5 +1,7 @@
-// Pantalla de Stock del día: cargar las porciones de cada plato activo.
-// Se guardan todas juntas con set_daily_stock (una sola llamada).
+// Pantalla de Stock del día: cargar las porciones de cada plato activo y tildar las guarniciones de hoy.
+// Todo se guarda junto con set_daily_stock (una sola llamada).
+// Una guarnición "de hoy" es una fila de daily_stock de hoy con cantidad 1; destildada queda en 0.
+// Como la fila lleva fecha, al día siguiente arrancan todas destildadas.
 import { supabase } from '../supabase.js'
 import { formatearGs, escaparHtml } from '../utils.js'
 
@@ -46,9 +48,10 @@ export async function mostrarStock(contenedor) {
       lista.textContent = 'No se pudo cargar el stock. Revisá la conexión.'
       return
     }
-    // Las guarniciones no llevan stock (se ofrecen con todos los platos): no aparecen acá.
+    // Las guarniciones no llevan porciones: van aparte, con una casilla.
     const platos = platosRes.data.filter((p) => p.kind !== 'guarnicion')
-    if (!platos.length) {
+    const guarniciones = platosRes.data.filter((p) => p.kind === 'guarnicion')
+    if (!platos.length && !guarniciones.length) {
       lista.textContent = 'No hay platos activos. Cargalos primero en Menú.'
       return
     }
@@ -75,7 +78,21 @@ export async function mostrarStock(contenedor) {
               data-id="${p.id}" value="${s ? s.qty_initial : ''}" placeholder="0" />
           </label>`
       }).join('')}
-    `).join('')
+    `).join('') + `
+      <h3 class="menu-cat">Guarniciones de hoy</h3>
+      <p class="menu-ayuda">Tildá las que hay hoy: la web las ofrece con todos los platos. Mañana arrancan destildadas.</p>
+      ${guarniciones.map((g) => {
+        const s = stock.get(g.id)
+        return `
+          <label class="menu-plato guarn-fila">
+            <span class="menu-plato-info">
+              <strong>${escaparHtml(g.name)}</strong>
+              <span>${g.price > 0 ? `+${formatearGs(g.price)}` : 'Incluida'}${g.show_on_web === false ? ' · no se ve en la web' : ''}</span>
+            </span>
+            <input type="checkbox" data-guarnicion="${g.id}" data-cargada="${s ? 'si' : ''}" ${s?.qty_initial > 0 ? 'checked' : ''} />
+          </label>`
+      }).join('') || '<p class="menu-ayuda">No hay guarniciones activas. Cargalas en Menú con Tipo: Guarnición.</p>'}
+    `
     btn.disabled = false
   }
 
@@ -91,7 +108,12 @@ export async function mostrarStock(contenedor) {
       }
       items.push({ item_id: input.dataset.id, qty })
     }
-    if (!items.length) return mostrarMensaje(error, 'Cargá las porciones de al menos un plato.')
+    for (const casilla of form.querySelectorAll('input[data-guarnicion]')) {
+      // Una destildada solo se manda si ya tenía fila hoy (para ponerla en 0).
+      if (!casilla.checked && !casilla.dataset.cargada) continue
+      items.push({ item_id: casilla.dataset.guarnicion, qty: casilla.checked ? 1 : 0 })
+    }
+    if (!items.length) return mostrarMensaje(error, 'Cargá las porciones de algún plato o tildá una guarnición.')
 
     mostrarMensaje(error, '')
     btn.disabled = true

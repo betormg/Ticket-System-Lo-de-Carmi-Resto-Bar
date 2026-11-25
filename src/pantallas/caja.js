@@ -56,7 +56,8 @@ export async function mostrarCaja(contenedor) {
       return
     }
     platos = data
-      .filter((s) => s.menu_items?.active)
+      // Las guarniciones del día también tienen fila en daily_stock, pero no se venden solas.
+      .filter((s) => s.menu_items?.active && s.menu_items.kind !== 'guarnicion')
       .map((s) => ({
         id: s.item_id,
         nombre: s.menu_items.name,
